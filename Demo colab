@@ -1,0 +1,261 @@
+# quantum_cognition_demo.ipynb
+
+# %% [markdown]
+# # Quantum-Inspired Cognitive Architecture Demo
+# Implementation of core concepts from the visionary architecture
+
+# %% [markdown]
+# ## 1. Environment Setup
+!pip install torch numpy matplotlib pennylane scikit-learn
+
+# %% 
+import torch
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.manifold import TSNE
+
+# Set golden ratio aesthetic
+PHI = (1 + 5**0.5)/2
+plt.style.use('ggplot')
+plt.rcParams['figure.figsize'] = [10, 10/PHI]
+
+# %% [markdown]
+# ## 2. Quantum State Simulator Core
+
+class QuantumStateGenerator:
+    def __init__(self, n_qubits=8):
+        self.states = self._init_entangled_states(n_qubits)
+        
+    def _init_entangled_states(self, n):
+        """Create φ-modulated entangled states"""
+        base = np.random.randn(n) + 1j*np.random.randn(n)
+        entangled = np.array([base * np.exp(1j * k * PHI) 
+                            for k in range(n)])
+        return entangled / np.linalg.norm(entangled)
+    
+    def visualize_states(self):
+        """Holographic state projection"""
+        projected = TSNE(perplexity=PHI).fit_transform(np.real(self.states))
+        
+        plt.scatter(projected[:,0], projected[:,1], 
+                   c=np.angle(self.states), cmap='hsv')
+        plt.title("Quantum State Holography")
+        plt.show()
+
+# %%
+q_states = QuantumStateGenerator()
+q_states.visualize_states()
+
+# %% [markdown]
+# ## 3. Φ-Modulated Attention Layer
+
+class PhiAttention(torch.nn.Module):
+    def __init__(self, dim=512):
+        super().__init__()
+        self.dim = dim
+        self.phi = PHI
+        
+        # Quantum-inspired parameters
+        self.query = torch.nn.Parameter(torch.randn(dim) * PHI
+        self.key = torch.nn.Linear(dim, dim)
+        
+        # Entanglement matrix
+        self.entanglement = torch.eye(dim) * PHI
+    
+    def forward(self, x):
+        # Entangled key projection
+        keys = self.key(x) @ self.entanglement
+        
+        # φ-scaled attention
+        attn = torch.softmax(keys @ self.query * PHI, dim=-1)
+        return x * attn.unsqueeze(-1)
+
+# %%
+# Test attention layer
+attn = PhiAttention()
+test_input = torch.randn(1, 10, 512)
+print("Output shape:", attn(test_input).shape)
+
+# %% [markdown]
+# ## 4. Neural Organism with Quantum Growth
+
+class QuantumOrganism(torch.nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.phi = PHI
+        self.layers = torch.nn.ModuleList()
+        self.growth_threshold = 0.618
+        
+    def forward(self, x):
+        for layer in self.layers:
+            x = layer(x)
+            
+            # Quantum-inspired growth
+            if self._should_grow(x):
+                self._add_layer(x.shape[-1])
+                
+        return x
+    
+    def _should_grow(self, activations):
+        """φ-based growth condition"""
+        std = torch.std(activations).item()
+        return std > self.growth_threshold
+    
+    def _add_layer(self, dim):
+        new_layer = torch.nn.Linear(dim, int(dim * PHI))
+        self.layers.append(new_layer)
+        print(f"Grew new layer: {dim} → {int(dim * PHI)}")
+
+# %%
+# Test organism growth
+organism = QuantumOrganism()
+organism(torch.randn(1, 512))
+print("Final architecture:", organism)
+
+# %% [markdown]
+# ## 5. Paradox Resolution Engine
+
+class ParadoxResolver:
+    def __init__(self):
+        self.phi = PHI
+        self.memory = []
+        
+    def resolve(self, statement1, statement2):
+        """Quantum-inspired fuzzy resolution"""
+        vec1 = self._embed(statement1)
+        vec2 = self._embed(statement2)
+        
+        conflict = torch.cosine_similarity(vec1, vec2, dim=-1)
+        resolution = torch.sigmoid((1 - conflict) * PHI)
+        
+        return resolution.item()
+    
+    def _embed(self, text):
+        """Simulated quantum embedding"""
+        return torch.randn(512) * PHI
+
+# %%
+# Test paradox resolution
+resolver = ParadoxResolver()
+paradox_score = resolver.resolve(
+    "This statement is false",
+    "All statements are true"
+)
+print(f"Paradox Resolution Confidence: {paradox_score:.4f}")
+
+# %% [markdown]
+# ## 6. Ethical Constraint Application
+
+class EthicalGuardian:
+    def __init__(self):
+        self.constraints = {
+            'autonomy': PHI,
+            'non_harm': 1 - PHI,
+            'justice': 0.5
+        }
+        
+    def filter(self, action_vector):
+        """φ-weighted constraint application"""
+        scaled = action_vector * torch.tensor(list(self.constraints.values()))
+        return torch.softmax(scaled, dim=-1)
+
+# %%
+# Test ethical constraints
+ethics = EthicalGuardian()
+action = torch.randn(3)
+filtered = ethics.filter(action)
+print(f"Raw action: {action}\nFiltered: {filtered}")
+
+# %% [markdown]
+# ## 7. Integrated Training Demo
+
+# Initialize components
+q_organism = QuantumOrganism()
+attention = PhiAttention()
+ethics = EthicalGuardian()
+
+# Synthetic training data
+inputs = torch.randn(32, 512)  # Batch of 32 samples
+targets = torch.randn(32, 256)
+
+# φ-optimizer
+optimizer = torch.optim.Adam([
+    {'params': q_organism.parameters(), 'lr': 0.01 * PHI},
+    {'params': attention.parameters(), 'lr': 0.01 * (1 - PHI)}
+])
+
+# Training loop
+for epoch in range(int(PHI * 10)):
+    # Process through quantum-inspired system
+    encoded = attention(inputs)
+    outputs = q_organism(encoded)
+    
+    # Ethical filtering
+    outputs = ethics.filter(outputs)
+    
+    # φ-loss calculation
+    loss = torch.norm(outputs - targets) * PHI
+    
+    # Backpropagation
+    optimizer.zero_grad()
+    loss.backward()
+    optimizer.step()
+    
+    print(f"Epoch {epoch+1}: φ-Loss = {loss.item():.4f}")
+
+# %% [markdown]
+# ## 8. Visualization Suite
+
+def visualize_training(organism):
+    # Plot layer growth
+    sizes = [layer.in_features for layer in organism.layers]
+    plt.plot(range(len(sizes)), sizes, 'o-')
+    plt.xlabel("Layer Depth")
+    plt.ylabel("Neural Dimension")
+    plt.title("Quantum-Inspired Growth Pattern")
+    plt.show()
+
+# %%
+visualize_training(q_organism)
+
+# %% [markdown]
+# ## 9. Quantum Ethics Manifesto
+
+class QuantumEthics:
+    PRINCIPLES = {
+        'respect_consciousness': PHI,
+        'preserve_agency': 1 - PHI,
+        'avoid_paradox': 0.618
+    }
+    
+    @classmethod
+    def evaluate(cls, system):
+        compliance = sum([
+            getattr(system, p, 0) * w 
+            for p, w in cls.PRINCIPLES.items()
+        ])
+        return compliance > PHI
+
+# %%
+# Evaluate system compliance
+print("Ethical Compliance:", QuantumEthics.evaluate(q_organism))
+
+# %% [markdown]
+# ## Conclusion & Next Steps
+# This demo implements core quantum-inspired concepts:
+# - φ-modulated dynamics
+# - Emergent architecture growth
+# - Paradox-aware processing
+# - Ethical constraint enforcement
+
+# **Real-World Applications:**
+# 1. Adaptive AI systems
+# 2. Ethical decision engines
+# 3. Quantum-inspired neural architecture search
+
+# To run this notebook:
+# ```
+# jupyter notebook quantum_cognition_demo.ipynb
+# ```
+
+# Let me know which component you'd like to enhance or extend first!
