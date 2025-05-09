@@ -1,0 +1,47 @@
+# Changelog - Genesis Engine
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased]
+
+### Added
+- Quantum Steganography Module with advanced encryption features
+- φ-modulated encoding system
+- Multiple steganography modes (PSI, PHI, TAU)
+- Quantum watermarking capabilities
+- Advanced error handling system
+
+### Changed
+- Updated core architecture to support quantum-inspired features
+- Enhanced security protocols with quantum-resistant algorithms
+- Improved documentation structure
+
+### Fixed
+- Initial setup issues in steganography module
+- Memory management in quantum state handling
+- Performance bottlenecks in φ-modulation
+
+## [1.0.0] - 2025-05-09
+
+### Added
+- Initial release of Genesis Engine core framework
+- ΦAttention mechanism integration
+- QuantumOrganism neural architecture
+- TemporalSuperposition memory system
+- ParadoxResolver ethical framework
+- Basic MagicGardenDemo visualization
+- Comprehensive documentation and examples
+
+### Security
+- Implementation of quantum-inspired security protocols
+- Addition of encryption mechanisms
+- Secure state management system
+
+[unreleased]: https://github.com/Craig444444444/Genesis-Engine/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/Craig444444444/Genesis-Engine/releases/tag/v1.0.0
+
+Created: 2025-05-09 06:38:07 UTC
+Last Updated: 2025-05-09 06:38:07 UTC
